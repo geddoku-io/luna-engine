@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hentai Visual Novel
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { useAssets } from "./core";
+
+const App: React.FC = () => {
+  const { loadAllAssets } = useAssets();
+  
+  const [loadedAssets, setLoadedAssets] = useState<any | null>(null);
+
+  useEffect(() => {
+    async function loadAssets() {
+      const assets = await loadAllAssets();
+      setLoadedAssets(assets);
+    }
+
+    loadAssets();
+  }, []);
+
+  if (!loadedAssets) {
+    return <div>Loading...</div>;
+  }
+
+  return <div>Loaded</div>;
+};
 
 export default App;
