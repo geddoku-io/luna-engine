@@ -12,7 +12,8 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true
         },
-        frame: !isDev
+        frame: isDev,
+        title: 'Game Engine'
     })
 
     if (isDev) {
