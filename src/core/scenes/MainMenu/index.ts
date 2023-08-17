@@ -1,5 +1,5 @@
 import MainMenu from './generic';
-import { MainMenuAction, exitGameAction, loadGameAction, startGameAction } from './actions';
+import { MainMenuAction, MainMenuActionCreator } from './actions';
 
-export { MainMenu, startGameAction, loadGameAction, exitGameAction }; export type { MainMenuAction };
+export { MainMenu, MainMenuActionCreator }; export type { MainMenuAction };
 

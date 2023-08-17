@@ -1,3 +1,9 @@
+import { Language, Settings } from './settings';
+
+export interface Translations {
+    [key: string]: string | Translations;
+}
+
 export interface AudioConfig {
     backgroundMusic: string;
     soundEffects: string[];
@@ -105,4 +111,4 @@ export interface SceneState {
     selectedChoiceIndex: number;
 }
 
-export { };
+export type { Language, Settings };

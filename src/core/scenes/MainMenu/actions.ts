@@ -1,25 +1,45 @@
+import { useLocalization } from '../../hooks/localizationContext';
+import { MainMenuTranslations } from '../../translations';
+
 export interface MainMenuAction {
-    label: string;
-    action: () => void;
+    labelKey: keyof MainMenuTranslations;
+    action: (changeScene: (scene: string) => void) => void;
+    getLabel: () => string;
 }
 
-export const startGameAction: MainMenuAction = {
-    label: 'Start Game',
-    action: () => {
-        console.log('Starting the game...');
-    },
+export const CreateMainMenuAction = (
+    labelKey: keyof MainMenuTranslations,
+    action: (changeScene: (scene: string) => void) => void,
+    translations: MainMenuTranslations
+): MainMenuAction => {
+    return {
+        labelKey,
+        action,
+        getLabel: () => translations[labelKey],
+    };
 };
 
-export const loadGameAction: MainMenuAction = {
-    label: 'Load Game',
-    action: () => {
-        console.log('Loading the game...');
-    },
-};
+export const MainMenuActionCreator = () => {
+    const { translations } = useLocalization();
 
-export const exitGameAction: MainMenuAction = {
-    label: 'Exit Game',
-    action: () => {
-        console.log('Exiting the game...');
-    },
+    const startGameAction: MainMenuAction = CreateMainMenuAction(
+        'startButtonText',
+        (changeScene) => {
+            changeScene('StartGame');
+        },
+        translations.mainMenu
+    );
+
+    const menuSettingsAction: MainMenuAction = CreateMainMenuAction(
+        'settingsButtonText',
+        (changeScene) => {
+            changeScene('MenuSettings');
+        },
+        translations.mainMenu
+    );
+
+    return {
+        startGameAction,
+        menuSettingsAction,
+    };
 };

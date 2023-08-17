@@ -1,35 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
+import { useLocalization } from "../../hooks/localizationContext";
 
-import { MainMenu, startGameAction, loadGameAction, exitGameAction } from "./";
+import { mainMenuStyles, buttonsContainerStyles, buttonStyles } from "./styles";
 
-const MainMenuScene: React.FC = () => {
-  const mainMenu = new MainMenu([
-    startGameAction,
-    loadGameAction,
-    exitGameAction,
-  ]);
-  const [selectedAction, setSelectedAction] = useState<number | null>(null);
+interface MainMenuAction {
+  label: string;
+  action: (changeScene: (scene: string) => void) => void;
+  getLabel: () => string;
+}
 
-  const handleActionSelection = (action: number) => {
-    setSelectedAction(action);
-    mainMenu.selectAction(action);
-  };
+interface MainMenuSceneProps {
+  actions: MainMenuAction[];
+  changeScene: (scene: string) => void;
+}
+
+const MainMenu: React.FC<MainMenuSceneProps> = ({ actions, changeScene }) => {
+  const { translations } = useLocalization();
 
   return (
-    <div>
-      <h1>Main Menu</h1>
-
-      {mainMenu.actions.map((action, index) => (
-        <button key={index} onClick={() => handleActionSelection(index + 1)}>
-          {action.label}
-        </button>
-      ))}
-
-      {selectedAction !== null && (
-        <p>Selected: {mainMenu.actions[selectedAction - 1].label}</p>
-      )}
+    <div style={mainMenuStyles}>
+      <h1>{translations.mainMenu.title}</h1>
+      <div style={buttonsContainerStyles}>
+        {actions.map((action, index) => (
+          <button
+            key={index}
+            onClick={() => action.action(changeScene)}
+            style={buttonStyles}
+          >
+            {action.getLabel()}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default MainMenuScene;
+export default MainMenu;

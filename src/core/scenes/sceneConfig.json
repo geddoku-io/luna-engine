@@ -1,0 +1,22 @@
+[
+  {
+    "name": "MainMenu",
+    "component": "MainMenuScene"
+  },
+  {
+    "name": "StartGame",
+    "component": "StartGameScene"
+  },
+  {
+    "name": "MenuGallery",
+    "component": "MenuGalleryScene"
+  },
+  {
+    "name": "MenuSettings",
+    "component": "MenuSettingsScene"
+  },
+  {
+    "name": "LoadGame",
+    "component": "LoadGameScene"
+  }
+]
